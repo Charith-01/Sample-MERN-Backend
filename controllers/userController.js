@@ -22,3 +22,31 @@ export function saveUser(req, res){
         })
     })
 }
+
+export function loginUser(req, res){
+
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({
+        email : email
+    }).then((user)=>{
+        if(user == null){
+            res.json({
+                message: "Invalid email"
+            })
+        }else{
+            const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+
+            if(isPasswordCorrect){
+                res.json({
+                    message : "Login successfull"
+                })
+            }else{
+                res.json({
+                    message : "Invalid password"
+                })
+            }
+        }
+    })
+}
