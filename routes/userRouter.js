@@ -3,4 +3,6 @@ import { saveUser } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
-userRouter.post("/", saveUser)
+userRouter.post("/", saveUser);
+
+export default userRouter;
