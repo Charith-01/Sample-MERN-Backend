@@ -36,7 +36,7 @@ export function loginUser(req, res){
                 message: "Invalid email"
             })
         }else{
-            const isPasswordCorrect = bcrypt.compareSync(password, user.password)
+            const isPasswordCorrect = bcrypt.compareSync(password, user.password);
 
             if(isPasswordCorrect){
                 res.json({
