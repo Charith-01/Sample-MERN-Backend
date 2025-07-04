@@ -17,7 +17,7 @@ export function saveUser(req, res){
             message: "Usr saved successfully"
         })
     }).catch(()=>{
-        res.json({
+        res.status(500).json({
             message: "User not saved"
         })
     })
@@ -32,7 +32,7 @@ export function loginUser(req, res){
         email : email
     }).then((user)=>{
         if(user == null){
-            res.json({
+            res.status(404).json({
                 message: "Invalid email"
             })
         }else{
@@ -43,7 +43,7 @@ export function loginUser(req, res){
                     message : "Login successfull"
                 })
             }else{
-                res.json({
+                res.status(403).json({
                     message : "Invalid password"
                 })
             }
