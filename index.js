@@ -1,8 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import studentRouter from './routes/studentRouter.js';
-import itemRouter from './routes/itemRouter.js';
 import userRouter from './routes/userRouter.js';
 import jwt, { decode } from 'jsonwebtoken';
 
@@ -22,7 +20,7 @@ mongoose.connect("mongodb+srv://admin:1234@cluster0.ifxv2rb.mongodb.net/?retryWr
 //Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-//Middleware to Authorization users
+//Middleware to authentication users
 app.use(
     (req, res, next)=>{
         const header = req.header("Authorization");
@@ -43,8 +41,6 @@ app.use(
 
 
 //Call to routes
-app.use("/api/student", studentRouter);
-app.use("/api/item", itemRouter);
 app.use("/api/user", userRouter);
 
 app.listen(5000,()=>{
