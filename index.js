@@ -2,7 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRouter.js';
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
+import productRouter from './routes/productRouter.js';
 
 
 const app = express();
@@ -42,6 +43,7 @@ app.use(
 
 //Call to routes
 app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
 
 app.listen(5000,()=>{
     console.log("Server is running on port 5000");
