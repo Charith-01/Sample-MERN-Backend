@@ -16,5 +16,19 @@ export function createProduct(req, res){
         return;
     }
 
-    
+    const product = new Product(req.body);
+
+    product.save().then(
+        ()=>{
+            res.json({
+                message: "Product save successfully"
+            })
+        }
+    ).catch(
+        (err)=>{
+            res.status(500).json({
+                message : "Product not save"
+            })
+        }
+    )
 }
