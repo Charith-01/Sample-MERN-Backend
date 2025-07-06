@@ -21,6 +21,8 @@ mongoose.connect("mongodb+srv://admin:1234@cluster0.ifxv2rb.mongodb.net/?retryWr
 //Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
+
+//Call routes
 app.use("/api/student", studentRouter);
 app.use("/api/item", itemRouter);
 app.use("/api/user", userRouter);
