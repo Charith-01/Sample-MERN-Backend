@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import studentRouter from './routes/studentRouter.js';
 import itemRouter from './routes/itemRouter.js';
 import userRouter from './routes/userRouter.js';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 
 
 const app = express();
@@ -22,14 +22,22 @@ mongoose.connect("mongodb+srv://admin:1234@cluster0.ifxv2rb.mongodb.net/?retryWr
 //Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
+//Middleware to Authorization users
 app.use(
     (req, res, next)=>{
         const header = req.header("Authorization");
         
         if(header != null){
             const token = header.replace("Bearer ","");
-            
+
+            jwt.verify(token, "sample123", (err, decoded)=>{
+                
+                if(decoded != null){
+                    req.user = decoded
+                }
+            })
         }
+        next()
     }
 )
 
