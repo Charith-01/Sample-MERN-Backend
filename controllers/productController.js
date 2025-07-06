@@ -83,4 +83,20 @@ export function updateProduct(req, res){
         })
         return;
     }
+
+    Product.findOneAndUpdate({
+        productId : req.params.productId
+    },req.body).then(
+        ()=>{
+            res.json({
+                message: "Product updated successfully"
+            })
+        }
+    ).catch(
+        (err)=>{
+            res.status(500).json({
+                message: "Product not updated"
+            })
+        }
+    )
 }
