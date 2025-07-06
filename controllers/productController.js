@@ -47,7 +47,35 @@ export function getProducts(req, res){
     )
 }
 
-export function deleteProduct(req, res){
+export function deleteProduct(req, res) {
+
+    if (req.user == null) {
+        res.status(403).json({
+            message: "You need to login first"
+        });
+        return;
+    }
+
+    Product.findOneAndDelete({
+        productId: req.params.productId
+    }).then((deletedProduct) => {
+        if (!deletedProduct) {
+            res.status(404).json({
+                message: "Product not found"
+            });
+            return;
+        }
+        res.json({
+            message: "Product deleted successfully"
+        });
+    }).catch((err) => {
+        res.status(500).json({
+            message: "Product not deleted"
+        });
+    });
+}
+
+export function updateProduct(req, res){
 
     if(req.user == null){
         res.status(403).json({
@@ -55,20 +83,4 @@ export function deleteProduct(req, res){
         })
         return;
     }
-
-    Product.findOneAndDelete({
-        productId : req.params.productId
-    }).then(
-        ()=>{
-            res.json({
-                message: "Product deleted successfully"
-            })
-        }
-    ).catch(
-        (err)=>{
-            res.status(500).json({
-                message: "Product not deleted"
-            })
-        }
-    )
 }
