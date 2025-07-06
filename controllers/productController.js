@@ -32,3 +32,43 @@ export function createProduct(req, res){
         }
     )
 }
+
+export function getProducts(req, res){
+    Product.find().then(
+        (products)=>{
+            res.json(products)
+        }
+    ).catch(
+        (err)=>{
+            res.status(500).json({
+                message: "Product not found"
+            })
+        }
+    )
+}
+
+export function deleteProduct(req, res){
+
+    if(req.user == null){
+        res.status(403).json({
+            message: "You need to login first"
+        })
+        return;
+    }
+
+    Product.findOneAndDelete({
+        productId : req.params.productId
+    }).then(
+        ()=>{
+            res.json({
+                message: "Product deleted successfully"
+            })
+        }
+    ).catch(
+        (err)=>{
+            res.status(500).json({
+                message: "Product not deleted"
+            })
+        }
+    )
+}
